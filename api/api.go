@@ -16,6 +16,11 @@ func RemoteRouteKickoffNotify(serviceKey *skynet.ServiceKey, account string, ses
 	return server_client.KickoffNotify(serviceKey, account, sessionId, gProtoKickOffNotify)
 }
 
+// 查询在线用户到目标GIM Server[N] Service
+func RemoteGetAndDelMessage(serviceKey *skynet.ServiceKey, account string) (error, map[string]*gproto.GProtoMessageNotify) {
+	return server_client.GetAndDelMessage(serviceKey, account)
+}
+
 /////////////////
 // Session APIs
 /////////////////

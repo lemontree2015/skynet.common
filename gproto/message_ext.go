@@ -17,28 +17,28 @@ import (
 // }
 
 type GProtoSelfUser struct {
-	Account             string
-	Nickname            string
-	Gender              uint8
-	Avatar              string
-	Signature           string
-	Extern              string
-	CustomVersion       string
-	Data                string
-	LastOnlineTimestamp int64
+	Account string
+	//Nickname            string
+	//Gender              uint8
+	//Avatar              string
+	//Signature           string
+	//Extern              string
+	//CustomVersion       string
+	//Data                string
+	//LastOnlineTimestamp int64
 }
 
 func EmptyGProtoSelfUser(account string) *GProtoSelfUser {
 	return &GProtoSelfUser{
-		Account:             account,
-		Nickname:            "",
-		Gender:              0,
-		Avatar:              "",
-		Signature:           "",
-		Extern:              "",
-		CustomVersion:       "",
-		Data:                "",
-		LastOnlineTimestamp: 0,
+		Account: account,
+		//Nickname:            "",
+		//Gender:              0,
+		//Avatar:              "",
+		//Signature:           "",
+		//Extern:              "",
+		//CustomVersion:       "",
+		//Data:                "",
+		//LastOnlineTimestamp: 0,
 	}
 }
 
@@ -58,44 +58,44 @@ func (selfUser *GProtoSelfUser) Encode(version uint16) ([]byte, error) {
 		}
 
 		// GProtoSelfUser.Nickname
-		if err = buffer.WriteString(selfUser.Nickname); err != nil {
-			return nil, err
-		}
-
-		// GProtoSelfUser.Gender
-		if err = buffer.WriteUInt8(selfUser.Gender); err != nil {
-			return nil, err
-		}
-
-		// GProtoSelfUser.Avatar
-		if err = buffer.WriteString(selfUser.Avatar); err != nil {
-			return nil, err
-		}
-
-		// GProtoSelfUser.Signature
-		if err = buffer.WriteString(selfUser.Signature); err != nil {
-			return nil, err
-		}
-
-		// GProtoSelfUser.Extern
-		if err = buffer.WriteString(selfUser.Extern); err != nil {
-			return nil, err
-		}
-
-		// GProtoSelfUser.CustomVersion
-		if err = buffer.WriteString(selfUser.CustomVersion); err != nil {
-			return nil, err
-		}
-
-		// GProtoSelfUser.Data
-		if err = buffer.WriteString(selfUser.Data); err != nil {
-			return nil, err
-		}
-
-		// GProtoSelfUser.LastOnlineTimestamp
-		if err = buffer.WriteInt64(selfUser.LastOnlineTimestamp); err != nil {
-			return nil, err
-		}
+		//if err = buffer.WriteString(selfUser.Nickname); err != nil {
+		//	return nil, err
+		//}
+		//
+		//// GProtoSelfUser.Gender
+		//if err = buffer.WriteUInt8(selfUser.Gender); err != nil {
+		//	return nil, err
+		//}
+		//
+		//// GProtoSelfUser.Avatar
+		//if err = buffer.WriteString(selfUser.Avatar); err != nil {
+		//	return nil, err
+		//}
+		//
+		//// GProtoSelfUser.Signature
+		//if err = buffer.WriteString(selfUser.Signature); err != nil {
+		//	return nil, err
+		//}
+		//
+		//// GProtoSelfUser.Extern
+		//if err = buffer.WriteString(selfUser.Extern); err != nil {
+		//	return nil, err
+		//}
+		//
+		//// GProtoSelfUser.CustomVersion
+		//if err = buffer.WriteString(selfUser.CustomVersion); err != nil {
+		//	return nil, err
+		//}
+		//
+		//// GProtoSelfUser.Data
+		//if err = buffer.WriteString(selfUser.Data); err != nil {
+		//	return nil, err
+		//}
+		//
+		//// GProtoSelfUser.LastOnlineTimestamp
+		//if err = buffer.WriteInt64(selfUser.LastOnlineTimestamp); err != nil {
+		//	return nil, err
+		//}
 
 		return buffer.Bytes(), nil
 	}
@@ -124,44 +124,44 @@ func (selfUser *GProtoSelfUser) Decode(version uint16, buf []byte) error {
 		}
 
 		// GProtoSelfUser.Nickname
-		if selfUser.Nickname, err = buffer.ReadString(); err != nil {
-			return err
-		}
-
-		// GProtoSelfUser.Gender
-		if err = buffer.ReadUInt8(&selfUser.Gender); err != nil {
-			return err
-		}
-
-		// GProtoSelfUser.Avatar
-		if selfUser.Avatar, err = buffer.ReadString(); err != nil {
-			return err
-		}
-
-		// GProtoSelfUser.Signature
-		if selfUser.Signature, err = buffer.ReadString(); err != nil {
-			return err
-		}
-
-		// GProtoSelfUser.Extern
-		if selfUser.Extern, err = buffer.ReadString(); err != nil {
-			return err
-		}
-
-		// GProtoSelfUser.CustomVersion
-		if selfUser.CustomVersion, err = buffer.ReadString(); err != nil {
-			return err
-		}
-
-		// GProtoSelfUser.Data
-		if selfUser.Data, err = buffer.ReadString(); err != nil {
-			return err
-		}
-
-		// GProtoSelfUser.LastOnlineTimestamp
-		if err = buffer.ReadInt64(&selfUser.LastOnlineTimestamp); err != nil {
-			return err
-		}
+		//if selfUser.Nickname, err = buffer.ReadString(); err != nil {
+		//	return err
+		//}
+		//
+		//// GProtoSelfUser.Gender
+		//if err = buffer.ReadUInt8(&selfUser.Gender); err != nil {
+		//	return err
+		//}
+		//
+		//// GProtoSelfUser.Avatar
+		//if selfUser.Avatar, err = buffer.ReadString(); err != nil {
+		//	return err
+		//}
+		//
+		//// GProtoSelfUser.Signature
+		//if selfUser.Signature, err = buffer.ReadString(); err != nil {
+		//	return err
+		//}
+		//
+		//// GProtoSelfUser.Extern
+		//if selfUser.Extern, err = buffer.ReadString(); err != nil {
+		//	return err
+		//}
+		//
+		//// GProtoSelfUser.CustomVersion
+		//if selfUser.CustomVersion, err = buffer.ReadString(); err != nil {
+		//	return err
+		//}
+		//
+		//// GProtoSelfUser.Data
+		//if selfUser.Data, err = buffer.ReadString(); err != nil {
+		//	return err
+		//}
+		//
+		//// GProtoSelfUser.LastOnlineTimestamp
+		//if err = buffer.ReadInt64(&selfUser.LastOnlineTimestamp); err != nil {
+		//	return err
+		//}
 
 		return nil
 	}
@@ -170,7 +170,8 @@ func (selfUser *GProtoSelfUser) Decode(version uint16, buf []byte) error {
 }
 
 func (selfUser *GProtoSelfUser) String() string {
-	return fmt.Sprintf("%v_%v_%v_%v", selfUser.Account, selfUser.Nickname, selfUser.Gender, selfUser.CustomVersion)
+	//return fmt.Sprintf("%v_%v_%v_%v", selfUser.Account, selfUser.Nickname, selfUser.Gender, selfUser.CustomVersion)
+	return fmt.Sprintf("%v", selfUser.Account)
 }
 
 // message OtherUser {

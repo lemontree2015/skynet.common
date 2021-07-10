@@ -560,11 +560,12 @@ func (authRequest *GProtoAuthRequest) Decode(version uint16, buf []byte) error {
 // }
 
 type GProtoAuthResponse struct {
-	Code       uint8
-	User       *GProtoSelfUser
-	Friends    []*GProtoFriend
-	Groups     []*GProtoGroupInfo
-	Blacklists []*GProtoBlacklist
+	Code    uint8
+	Account string
+	//User       *GProtoSelfUser
+	//Friends    []*GProtoFriend
+	//Groups     []*GProtoGroupInfo
+	//Blacklists []*GProtoBlacklist
 }
 
 ////////////////////////////////////
@@ -585,24 +586,24 @@ func (authResponse *GProtoAuthResponse) Encode(version uint16) ([]byte, error) {
 		}
 
 		// GProtoAuthResponse.User
-		if err = buffer.WriteStruct(1, authResponse.User); err != nil {
+		if err = buffer.WriteString(authResponse.Account); err != nil {
 			return nil, err
 		}
 
 		// GProtoAuthResponse.Friends [array]
-		if err = buffer.WriteArray(1, authResponse.Friends); err != nil {
-			return nil, err
-		}
-
-		// GProtoAuthResponse.Groups [array]
-		if err = buffer.WriteArray(1, authResponse.Groups); err != nil {
-			return nil, err
-		}
-
-		// GProtoAuthResponse.Blacklists [array]
-		if err = buffer.WriteArray(1, authResponse.Blacklists); err != nil {
-			return nil, err
-		}
+		//if err = buffer.WriteArray(1, authResponse.Friends); err != nil {
+		//	return nil, err
+		//}
+		//
+		//// GProtoAuthResponse.Groups [array]
+		//if err = buffer.WriteArray(1, authResponse.Groups); err != nil {
+		//	return nil, err
+		//}
+		//
+		//// GProtoAuthResponse.Blacklists [array]
+		//if err = buffer.WriteArray(1, authResponse.Blacklists); err != nil {
+		//	return nil, err
+		//}
 
 		return buffer.Bytes(), nil
 	}
@@ -631,79 +632,78 @@ func (authResponse *GProtoAuthResponse) Decode(version uint16, buf []byte) error
 		}
 
 		// GProtoAuthResponse.User
-		authResponse.User = &GProtoSelfUser{}
-		if err = buffer.ReadStruct(1, authResponse.User); err != nil {
+		if authResponse.Account, err = buffer.ReadString(); err != nil {
 			return err
 		}
 
 		// GProtoAuthResponse.Friends [array]
-		var friendsNum uint16
-		if err = buffer.ReadUInt16(&friendsNum); err != nil {
-			return err
-		} else {
-			authResponse.Friends = make([]*GProtoFriend, friendsNum, friendsNum)
-			for i := 0; i < int(friendsNum); i++ {
-				var lenObj uint16
-				if err = buffer.ReadUInt16(&lenObj); err != nil {
-					return err
-				} else {
-					if bufObj, err := buffer.ReadRawBytes(lenObj); err != nil {
-						return err
-					} else {
-						authResponse.Friends[i] = &GProtoFriend{}
-						if err = authResponse.Friends[i].Decode(1, bufObj); err != nil {
-							return err
-						}
-					}
-				}
-			}
-		}
-
-		// GProtoAuthResponse.Groups [array]
-		var groupsNum uint16
-		if err = buffer.ReadUInt16(&groupsNum); err != nil {
-			return err
-		} else {
-			authResponse.Groups = make([]*GProtoGroupInfo, groupsNum, groupsNum)
-			for i := 0; i < int(groupsNum); i++ {
-				var lenObj uint16
-				if err = buffer.ReadUInt16(&lenObj); err != nil {
-					return err
-				} else {
-					if bufObj, err := buffer.ReadRawBytes(lenObj); err != nil {
-						return err
-					} else {
-						authResponse.Groups[i] = &GProtoGroupInfo{}
-						if err = authResponse.Groups[i].Decode(1, bufObj); err != nil {
-							return err
-						}
-					}
-				}
-			}
-		}
-
-		// GProtoAuthResponse.Blacklists [array]
-		var blacklistsNum uint16
-		if err = buffer.ReadUInt16(&blacklistsNum); err != nil {
-			return err
-		} else {
-			authResponse.Blacklists = make([]*GProtoBlacklist, blacklistsNum, blacklistsNum)
-			for i := 0; i < int(blacklistsNum); i++ {
-				var lenObj uint16
-				if err = buffer.ReadUInt16(&lenObj); err != nil {
-					return err
-				} else {
-					if bufObj, err := buffer.ReadRawBytes(lenObj); err != nil {
-						return err
-					} else {
-						authResponse.Blacklists[i] = &GProtoBlacklist{}
-						if err = authResponse.Blacklists[i].Decode(1, bufObj); err != nil {
-							return err
-						}
-					}
-				}
-			}
-		}
+		//var friendsNum uint16
+		//if err = buffer.ReadUInt16(&friendsNum); err != nil {
+		//	return err
+		//} else {
+		//	authResponse.Friends = make([]*GProtoFriend, friendsNum, friendsNum)
+		//	for i := 0; i < int(friendsNum); i++ {
+		//		var lenObj uint16
+		//		if err = buffer.ReadUInt16(&lenObj); err != nil {
+		//			return err
+		//		} else {
+		//			if bufObj, err := buffer.ReadRawBytes(lenObj); err != nil {
+		//				return err
+		//			} else {
+		//				authResponse.Friends[i] = &GProtoFriend{}
+		//				if err = authResponse.Friends[i].Decode(1, bufObj); err != nil {
+		//					return err
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+		//
+		//// GProtoAuthResponse.Groups [array]
+		//var groupsNum uint16
+		//if err = buffer.ReadUInt16(&groupsNum); err != nil {
+		//	return err
+		//} else {
+		//	authResponse.Groups = make([]*GProtoGroupInfo, groupsNum, groupsNum)
+		//	for i := 0; i < int(groupsNum); i++ {
+		//		var lenObj uint16
+		//		if err = buffer.ReadUInt16(&lenObj); err != nil {
+		//			return err
+		//		} else {
+		//			if bufObj, err := buffer.ReadRawBytes(lenObj); err != nil {
+		//				return err
+		//			} else {
+		//				authResponse.Groups[i] = &GProtoGroupInfo{}
+		//				if err = authResponse.Groups[i].Decode(1, bufObj); err != nil {
+		//					return err
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+		//
+		//// GProtoAuthResponse.Blacklists [array]
+		//var blacklistsNum uint16
+		//if err = buffer.ReadUInt16(&blacklistsNum); err != nil {
+		//	return err
+		//} else {
+		//	authResponse.Blacklists = make([]*GProtoBlacklist, blacklistsNum, blacklistsNum)
+		//	for i := 0; i < int(blacklistsNum); i++ {
+		//		var lenObj uint16
+		//		if err = buffer.ReadUInt16(&lenObj); err != nil {
+		//			return err
+		//		} else {
+		//			if bufObj, err := buffer.ReadRawBytes(lenObj); err != nil {
+		//				return err
+		//			} else {
+		//				authResponse.Blacklists[i] = &GProtoBlacklist{}
+		//				if err = authResponse.Blacklists[i].Decode(1, bufObj); err != nil {
+		//					return err
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
 
 		return nil
 	}

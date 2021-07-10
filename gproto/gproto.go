@@ -40,7 +40,7 @@ import (
 // 协议实现
 
 const (
-	MAGIC_WORLD = 0x88888888 // 4 bytes
+	MAGIC_WORLD = 0x7fffffff // 4 bytes
 	MAX_VERSION = 10
 	MIN_VERSION = 1
 )

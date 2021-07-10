@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/golang/glog"
 	"github.com/lemontree2015/skynet"
 	"github.com/lemontree2015/skynet.common/gproto"
 	"github.com/lemontree2015/skynet.common/server_client"
@@ -19,6 +20,29 @@ func RemoteRouteKickoffNotify(serviceKey *skynet.ServiceKey, account string, ses
 // 查询在线用户到目标GIM Server[N] Service
 func RemoteGetAndDelMessage(serviceKey *skynet.ServiceKey, account string) (error, map[string]*gproto.GProtoMessageNotify) {
 	return server_client.GetAndDelMessage(serviceKey, account)
+}
+
+// Route一条MessageNotify消息到目标GIM Server[N] Service
+//
+// 备注:
+// 如果目标Session不存在, 则将消息写入DB
+func RouteMessageNotify(account string, gProtoMessageNotify *gproto.GProtoMessageNotify, isSave bool) error {
+	if serviceKey, sessionId, _ := GetSession(account); serviceKey != nil {
+		// 找到目标account对应的session
+		return RemoteRouteMessageNotify(serviceKey, account, sessionId, gProtoMessageNotify)
+	} else {
+		if isSave {
+			// 写入DB
+			glog.Infof("APIMessage(OfflineMessage) create offline_error: account=%v, msgId=%v",
+				account, gProtoMessageNotify.MsgId)
+		}
+		return nil
+	}
+}
+
+// Route一条MessageNotify消息到目标GIM Server[N] Service
+func RemoteRouteMessageNotify(serviceKey *skynet.ServiceKey, account string, sessionId uint64, gProtoMessageNotify *gproto.GProtoMessageNotify) error {
+	return server_client.MessageNotify(serviceKey, account, sessionId, gProtoMessageNotify)
 }
 
 /////////////////

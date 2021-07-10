@@ -50,19 +50,31 @@ func RemoteRouteMessageNotify(serviceKey *skynet.ServiceKey, account string, ses
 /////////////////
 
 // 备注:
-// 通过判断返回的*skynet.ServiceKey是否为nil来判断是否删除了OldServiceKey
-func DelSessionWithSessionId(account string, sessionId uint64) (*skynet.ServiceKey, uint64, error) {
-	return session_client.DelSessionWithSessionId(account, sessionId)
-}
-
-// 备注:
 // 通过判断返回的*skynet.ServiceKey是否为nil来判断是否有对应的Session存在
 func TouchSession(account string) (*skynet.ServiceKey, uint64, error) {
 	return session_client.TouchSession(account)
 }
 
 // 备注:
+// 通过判断返回的*skynet.ServiceKey是否为nil来判断是否有对应的Session存在
+func GetSession(account string) (*skynet.ServiceKey, uint64, error) {
+	return session_client.GetSession(account)
+}
+
+// 备注:
 // 通过判断返回的*skynet.ServiceKey是否为nil来判断是否有OldServiceKey
 func SetSession(account string, serviceKey *skynet.ServiceKey, remoteSessionId uint64) (*skynet.ServiceKey, uint64, error) {
 	return session_client.SetSession(account, serviceKey, remoteSessionId)
+}
+
+// 备注:
+// 通过判断返回的*skynet.ServiceKey是否为nil来判断是否有OldServiceKey
+func DelSession(account string) (*skynet.ServiceKey, uint64, error) {
+	return session_client.DelSession(account)
+}
+
+// 备注:
+// 通过判断返回的*skynet.ServiceKey是否为nil来判断是否删除了OldServiceKey
+func DelSessionWithSessionId(account string, sessionId uint64) (*skynet.ServiceKey, uint64, error) {
+	return session_client.DelSessionWithSessionId(account, sessionId)
 }
